@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Car;
 use Illuminate\Http\Request;
+use App\Models\Message;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('frontend.homepage');
+        $cars = Car::latest()->get();
+
+        return view('frontend.homepage', compact('cars'));
     }
 
     public function contact()
@@ -16,8 +20,25 @@ class HomeController extends Controller
         return view('frontend.contact');
     }
 
-    public function detail()
+    public function contactStore(Request $request)
     {
-        return view('frontend.detail');
+        $data = $request->validate([
+            'nama' => 'required',
+            'email' => 'required',
+            'subject' => 'required',
+            'pesan' => 'required',
+        ]);
+
+        Message::create($data);
+        
+        return redirect()->back()->with([
+            'message' => 'pesan anda berhasil dikirim',
+            'alert-type' => 'success'
+        ]);
+    }
+
+    public function detail(Car $car)
+    {
+        return view('frontend.detail', compact('car'));
     }
 }
