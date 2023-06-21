@@ -22,6 +22,7 @@
     />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{ asset('frontend/css/styles.css') }}" rel="stylesheet" />
+    <link href="{{ asset('frontend/css/main.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}" />
   </head>
   <body>
